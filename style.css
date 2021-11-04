@@ -1,0 +1,14 @@
+body {}
+
+h1 {
+    color: brown;
+}
+
+#tap {
+    width: 160px;
+    height: 160px;
+    background-color: rgba(30, 204, 14, 0.753);
+    border-radius: 50%;
+    display: inline-block;
+    text-align: center;
+}
