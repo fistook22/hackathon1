@@ -6,6 +6,7 @@ let score = document.getElementById("score");
 let reset = document.getElementById("reset");
 let timerTag = document.getElementById("timer");
 
+
 let time = 5;
 tap.addEventListener("click", (e) => {
     if (click === 0) {
