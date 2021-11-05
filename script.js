@@ -1,72 +1,47 @@
-// let tap = document.getElementById("tap");
-// let score = document.getElementById("score");
-// let high = document.getElementById("high");
-// let result = document.getElementById("result");
-// let clicks = 0;
-// let time = 0;
-
-
-
-// function timer() {
-//     time--;
-//     if (time -= 0) {
-//         endGame()
-
-//     }
-
-// }
-// document.getElementById("tap").addEventListener("click", (e) => {
-//     setInterval(() => {
-//         timer()
-//     }, 5000);
-//     clicks += 1;
-//     document.getElementById("tap").innerHTML = clicks;
-// });
-
-// function endGame() {
-//     score = alert(clicks)
-// }
-
-
 let click = 0;
 let outOfTime = false;
 let high = document.getElementById("high");
 let tap = document.getElementById("tap");
 let score = document.getElementById("score");
 let reset = document.getElementById("reset");
+let timerTag = document.getElementById("timer");
 
-
-// function hi() {
-//     if (!outOfTime) {
-//         click += 1;
-//         document.getElementById("score").innerHTML = click;
-
-//     }
-// }
-let time = 5; //time in seconds
+let time = 5;
 tap.addEventListener("click", (e) => {
-    timer
+    if (click === 0) {
+        timer()
+    }
     if (!outOfTime) {
         click += 1;
         document.getElementById("score").innerHTML = click;
 
     }
 });
-let timer = setInterval(function() {
-    time--;
-    document.getElementById("timer").innerHTML = time + "s";
-    if (time == 0) {
-        clearInterval(timer);
-        document.getElementById("timer").innerHTML = "Time's up!";
-        outOfTime = true;
-    }
-}, 1000);
+
+function timer() {
+    let timerId = setInterval(function() {
+        time--;
+        document.getElementById("timer").innerHTML = time + "s";
+        if (time === 0) {
+            clearInterval(timerId);
+            document.getElementById("timer").innerHTML = "Time's up!";
+            outOfTime = true;
+            setHigh()
+        }
+    }, 1000);
+}
 
 function setHigh() {
-    if (score <= click) {
-        high.innerHTML(click);
+    console.log(score, click)
+    if (parseInt(high.innerText) <= click) {
+        high.innerHTML = click;
     }
 }
-reset.addEventListener("click", (e) => {
 
+reset.addEventListener("click", (e) => {
+    time = 5;
+    click = 0;
+    outOfTime = false;
+    timerTag.innerHTML = time + "s";
+    score.innerHTML = click;
 })
