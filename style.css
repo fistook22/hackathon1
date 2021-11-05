@@ -5,16 +5,20 @@ body {
     background-size: cover;
     width: 100vw;
     height: 100vh;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
 }
 
 h1 {
+    width: auto;
+    height: auto;
     color: cornsilk;
-    text-align: center;
 }
 
 p {
     color: cornsilk;
-    text-align: center;
 }
 
 #tap {
@@ -24,15 +28,9 @@ p {
     font-weight: bold;
     background-color: rgba(30, 170, 226, 0.753);
     border-radius: 50%;
-    justify-content: center;
-    margin-left: 555px;
-    flex: auto;
-    align-items: center;
 }
 
 #reset {
     width: 120px;
-    margin-left: 580px;
-    flex: auto;
-    align-items: center;
+    height: 60px;
 }
