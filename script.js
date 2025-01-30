@@ -1,48 +1,92 @@
-let click = 0;
-let outOfTime = false;
-let high = document.getElementById("high");
-let tap = document.getElementById("tap");
-let score = document.getElementById("score");
-let reset = document.getElementById("reset");
-let timerTag = document.getElementById("timer");
+// DOM Elements
+const tapButton = document.getElementById("tap");
+const resetButton = document.getElementById("reset");
+const timerDisplay = document.getElementById("timer");
+const scoreDisplay = document.getElementById("score");
+const highScoreDisplay = document.getElementById("high-score");
+const historyList = document.getElementById("history-list");
+const tapSound = document.getElementById("tap-sound");
 
+let score = 0;
+let timeLeft = 5000; // time in milliseconds
+let timerActive = false;
+let timerInterval;
+let highScore = 0;
+let scoreHistory = [];
 
-let time = 5;
-tap.addEventListener("click", (e) => {
-    if (click === 0) {
-        timer()
+// Tap button event listener
+tapButton.addEventListener("click", () => {
+    if (!timerActive) {
+        startTimer();
     }
-    if (!outOfTime) {
-        click += 1;
-        document.getElementById("score").innerHTML = click;
-
+    if (timeLeft > 0) {
+        score++;
+        scoreDisplay.innerText = score;
+        tapSound.play();
+        animateButton();
     }
 });
 
-function timer() {
-    let timerId = setInterval(function() {
-        time--;
-        document.getElementById("timer").innerHTML = time + "s";
-        if (time === 0) {
-            clearInterval(timerId);
-            document.getElementById("timer").innerHTML = "Time's up!";
-            outOfTime = true;
-            setHigh()
+// Function to start the timer
+function startTimer() {
+    timerActive = true;
+    timeLeft = 5000; // time in milliseconds
+    timerDisplay.innerText = (timeLeft / 1000).toFixed(2);
+
+    timerInterval = setInterval(() => {
+        timeLeft -= 10; // decrement by 10 milliseconds
+        timerDisplay.innerText = (timeLeft / 1000).toFixed(2);
+
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            timerActive = false;
+            timerDisplay.innerText = "Time's up!";
+            tapButton.style.display = "none"; // hide tap button
+            updateHighScore();
+            saveScoreHistory();
         }
-    }, 1000);
+    }, 10); // update every 10 milliseconds
 }
 
-function setHigh() {
-    console.log(score, click)
-    if (parseInt(high.innerText) <= click) {
-        high.innerHTML = click;
+// Function to update high score
+function updateHighScore() {
+    if (score > highScore) {
+        highScore = score;
+        highScoreDisplay.innerText = highScore;
     }
 }
 
-reset.addEventListener("click", (e) => {
-    time = 5;
-    click = 0;
-    outOfTime = false;
-    timerTag.innerHTML = time + "s";
-    score.innerHTML = click;
-})
+// Save score history
+function saveScoreHistory() {
+    scoreHistory.push(score);
+    updateScoreboard();
+}
+
+// Update scoreboard
+function updateScoreboard() {
+    historyList.innerHTML = "";
+    scoreHistory.slice(-5).forEach((s, index) => {
+        let listItem = document.createElement("li");
+        listItem.innerText = `Game ${scoreHistory.length - 4 + index}: ${s} points`;
+        historyList.appendChild(listItem);
+    });
+}
+
+// Reset button event listener
+resetButton.addEventListener("click", () => {
+    clearInterval(timerInterval);
+    score = 0;
+    timeLeft = 5000; // reset to 5000 milliseconds
+    timerActive = false;
+    scoreDisplay.innerText = score;
+    timerDisplay.innerText = (timeLeft / 1000).toFixed(2);
+    tapButton.style.display = "block"; // show tap button
+});
+
+// Button animation effect
+function animateButton() {
+    tapButton.style.transform = "scale(1.1)";
+    setTimeout(() => {
+        tapButton.style.transform = "scale(1)";
+    }, 100);
+}
