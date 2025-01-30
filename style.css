@@ -1,31 +1,81 @@
+/* Background */
 body {
-    background-image: url("./assets/back.jpg");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    width: 100vw;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: white;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
     height: 100vh;
     display: flex;
-    flex-flow: column wrap;
     justify-content: center;
     align-items: center;
 }
 
-h1 {
-    width: auto;
-    height: auto;
-    color: white;
+/* Game Container */
+.game-container {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border-radius: 15px;
+    width: 80%;
+    max-width: 400px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
 }
 
-p {
-    color: white;
+/* Buttons */
+button {
+    font-size: 1.5rem;
+    padding: 15px 30px;
+    margin: 10px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
 #tap {
-    width: 160px;
-    height: 160px;
+    background: radial-gradient(circle, #ff9a9e, #fad0c4);
+    color: black;
+    font-weight: bold;
+    box-shadow: 0 0 10px #ff9a9e;
+    display: block;
+    margin: 0 auto;
+}
+
+#tap:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px #ff9a9e;
+}
+
+#reset {
+    background: linear-gradient(to right, #ff9966, #ff5e62);
     color: white;
-    border-radius: 50%;
-    margin-bottom: 12px;
-    margin-top: 10px;
+    font-weight: bold;
+}
+
+#reset:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px #ff5e62;
+}
+
+/* Scoreboard */
+.scoreboard p {
+    font-size: 1.2rem;
+    margin: 10px;
+}
+
+/* Score History */
+.score-history {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.score-history ul {
+    list-style: none;
+    padding: 0;
+}
+
+.score-history li {
+    background: rgba(255, 255, 255, 0.2);
+    margin: 5px 0;
+    padding: 5px 10px;
+    border-radius: 5px;
 }
